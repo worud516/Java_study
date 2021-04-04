@@ -3,11 +3,13 @@ public class Exam02 {
 	public static void main(String[] args) {
 		
 		human ljk = new human();
-		ljk.name = "�씠�옱寃�";
+		ljk.name = "이재경";
 		ljk.age = 25;
 		ljk.tall = 181;
 		
-		
+		System.out.println(ljk.name);
+		System.out.println(ljk.age);
+		System.out.println(ljk.tall);
 	}
 }
 
