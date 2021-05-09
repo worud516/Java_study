@@ -5,14 +5,17 @@ import java.util.List;
 import java.util.Scanner;
 
 import my_task_article.dto.Article;
+import my_task_article.dto.Member;
 import my_task_article.util.util;
 
 
 public class App {
 	private static List<Article> articles;
+	private static List<Member> members;
 
 	static {
 		articles = new ArrayList<>();
+		members = new ArrayList<>();
 	}
 
 	public void start() {
@@ -35,13 +38,41 @@ public class App {
 			if (command.equals("system exit")) {
 				break;
 			}
+			
+			
+			if (command.equals("member join")) {
+				int id = members.size() + 1;
+				String regDate = util.getNowDateStr();
+				
+				String loginId = null;
+				
+				while(true) {
+					System.out.printf("로그인 아이디 : ");
+					loginId = sc.nextLine();
+					
+					if(isJoinableLoginId(loginId) == false) {
+						System.out.printf("%s는(은) 이미 사용중인 아이디 입니다.\n", loginId);
+						continue;
+					}
+					break;
+				}
+				
+				System.out.printf("로그인 비밀번호 : ");
+				String loginPw = sc.nextLine();
+				System.out.printf("이름 : ");
+				String name = sc.nextLine();
 
-			if (command.equals("article write")) {
+				Member member = new Member(id, regDate, loginId, loginPw, name);
+				members.add(member);
+
+				System.out.printf("%d번 회원이 생성 되었습니다.\n", id);
+				
+			}else if (command.equals("article write")) {
 				int id = articles.size() + 1;
 				String regDate = util.getNowDateStr();
-				System.out.printf("제목: ");
+				System.out.printf("제목 : ");
 				String title = sc.nextLine();
-				System.out.printf("내용: ");
+				System.out.printf("내용 : ");
 				String body = sc.nextLine();
 
 				Article article = new Article(id, regDate, title, body);
@@ -150,6 +181,28 @@ public class App {
 
 		System.out.println("==프로그램 끝==");
 	}
+	
+	private boolean isJoinableLoginId(String loginId) {
+		int index = getMemberIndexByLoginId(loginId);
+		
+		if(index == -1) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private int getMemberIndexByLoginId(String loginId) {
+		int i = 0;
+		for(Member member : members) {
+			if(member.loginId.equals(loginId)) {
+				return i;
+			}
+			i++;
+		}
+		return -1;
+	}
+	
 	
 	private int getArticleIndexById(int id) {
 		int i = 0;
