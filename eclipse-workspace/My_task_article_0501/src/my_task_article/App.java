@@ -50,15 +50,36 @@ public class App {
 				System.out.printf("%d번 글이 생성 되었습니다.\n", id);
 			}
 
-			else if (command.equals("article list")) {
+			else if (command.startsWith("article list")) {
 
 				if (articles.size() == 0) {
 					System.out.println("게시물이 없습니다");
 					continue;
 				}
+				
+				String searchKeyword = command.substring("article list".length()).trim();
+
+				List<Article> forListArticles = articles;
+
+				if (searchKeyword.length() > 0) {
+					forListArticles = new ArrayList<>();
+
+					for (Article article : articles) {
+						if (article.title.contains(searchKeyword)) {
+							forListArticles.add(article);
+						}
+					}
+
+					if (forListArticles.size() == 0) {
+						System.out.println("검색결과가 존재하지 않습니다.");
+						continue;
+					}
+				}
+				
+				
 				System.out.println("번호  /  제목/  조회");
-				for (int i = articles.size() - 1; i >= 0; i--) {
-					Article article = articles.get(i);
+				for (int i = forListArticles.size() - 1; i >= 0; i--) {
+					Article article = forListArticles.get(i);
 
 					System.out.printf("%d     /    %s/    %d\n", article.id, article.title, article.hit);
 				}
@@ -67,16 +88,8 @@ public class App {
 				String[] commandBits = command.split(" ");
 				int id = Integer.parseInt(commandBits[2]);
 
-				Article foundArticle = null;
+				Article foundArticle = getArticleById(id);
 
-				for (int i = 0; i < articles.size(); i++) {
-					Article article = articles.get(i);
-
-					if (article.id == id) {
-						foundArticle = article;
-						break;
-					}
-				}
 
 				if (foundArticle == null) {
 					System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
@@ -95,16 +108,8 @@ public class App {
 				String[] commandBits = command.split(" ");
 				int id = Integer.parseInt(commandBits[2]);
 
-				Article foundArticle = null;
-
-				for (int i = 0; i < articles.size(); i++) {
-					Article article = articles.get(i);
-
-					if (article.id == id) {
-						foundArticle = article;
-						break;
-					}
-				}
+				Article foundArticle = getArticleById(id);
+				
 
 				if (foundArticle == null) {
 					System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
@@ -125,16 +130,7 @@ public class App {
 				String[] commandBits = command.split(" ");
 				int id = Integer.parseInt(commandBits[2]);
 
-				int foundIndex = -1;
-
-				for (int i = 0; i < articles.size(); i++) {
-					Article article = articles.get(i);
-
-					if (article.id == id) {
-						foundIndex = i;
-						break;
-					}
-				}
+				int foundIndex = getArticleIndexById(id);
 
 				if (foundIndex == -1) {
 					System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
@@ -154,6 +150,58 @@ public class App {
 
 		System.out.println("==프로그램 끝==");
 	}
+	
+	private int getArticleIndexById(int id) {
+		int i = 0;
+		for(Article article : articles) {
+			if(article.id == id) {
+				return i;
+			}
+			i++;
+		}
+		return -1;
+	}
+	
+//	for (int i = 0; i < articles.size(); i++) {
+//		Article article = articles.get(i);
+//
+//		if (article.id == id) {
+//			foundIndex = i;
+//			break;
+//		}
+//	}
+
+	private Article getArticleById(int id) {
+		int index = getArticleIndexById(id);
+		
+		if(index != -1) {
+			return articles.get(index);
+		}
+		
+		return null;
+	}
+//	private Article getArticleById(int id) {
+//		for(int i = 0; i < articles.size(); i++) {
+//			Article article = articles.get(i);
+//			
+//			if(article.id == id) {
+//				return article;
+//			}
+//		}
+//		
+//		return null;
+//	}
+	
+//	for (int i = 0; i < articles.size(); i++) {
+//	Article article = articles.get(i);
+//
+//	if (article.id == id) {
+//		foundArticle = article;
+//		break;
+//	}
+//}
+	
+	
 
 	private static void makeTestData() {
 		System.out.println("테스트를 위한 데이터를 생성합니다.");
