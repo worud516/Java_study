@@ -16,7 +16,10 @@ public class App {
 
 		MemberController memberController = new MemberController(sc);
 		ArticleController articleController = new ArticleController(sc);
-
+		
+		
+		
+		memberController.makeTestData();
 		articleController.makeTestData();
 
 		while (true) {

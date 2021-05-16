@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import my_task_article.dto.Article;
 import my_task_article.dto.Member;
 import my_task_article.util.util;
 
@@ -32,12 +33,33 @@ public class MemberController extends Controller {
 		case "login":
 			doLogin();
 			break;
+		case "logout":
+			doLogout();
+			break;
 		default:
 			System.out.println("존재하지 않는 명령어 입니다.");
 			break;
 		}
 	}
+	
+	private boolean isLogined() {
+		return loginedMember != null;
+	}
+	
+	private void doLogout() {
+		if(isLogined() == false) {
+			System.out.println("로그인 상태가 아닙니다.");
+			return;
+		}
+		loginedMember = null;
+		System.out.println("로그아웃 되었습니다.");
+	}
+
 	private void doLogin() {
+		if(isLogined()) {
+			System.out.println("이미 로그인 되어있습니다.");
+			return;
+		}
 		System.out.printf("로그인 아이디 : ");
 		String loginId = sc.nextLine();
 		System.out.printf("로그인 비밀번호 : ");
@@ -133,6 +155,15 @@ public class MemberController extends Controller {
 		members.add(member);
 
 		System.out.printf("%d번 회원이 생성 되었습니다.\n", id);
+	}
+
+	public void makeTestData() {
+		System.out.println("테스트를 위한 회원 데이터를 생성합니다.");
+
+		members.add(new Member(1, util.getNowDateStr(), "admin", "admin", "관리자"));
+		members.add(new Member(2, util.getNowDateStr(), "user1", "user1", "유저1"));
+		members.add(new Member(3, util.getNowDateStr(), "user2", "user2", "유저1"));
+		
 	}
 
 }
