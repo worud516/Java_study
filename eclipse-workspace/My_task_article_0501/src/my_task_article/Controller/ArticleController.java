@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 import my_task_article.dto.Article;
 import my_task_article.util.util;
+import my_task_article.dto.Member;
+import my_task_article.container.Container;
 
 public class ArticleController extends Controller {
 	private Scanner sc;
@@ -16,7 +18,7 @@ public class ArticleController extends Controller {
 	public ArticleController(Scanner sc) {
 		this.sc = sc;
 
-		articles = new ArrayList<Article>();
+		articles = Container.articleDao.articles;
 	}
 
 	public void doAction(String command, String actionMethodName) {
@@ -31,10 +33,6 @@ public class ArticleController extends Controller {
 			showDetail();
 			break;
 		case "write":
-			if(isLogined() == false) {
-				System.out.println("로그인 후 이용해주세요");
-				break;
-			}
 			doWrite();
 			break;
 		case "modify":
@@ -108,7 +106,18 @@ public class ArticleController extends Controller {
 		for (int i = forListArticles.size() - 1; i >= 0; i--) {
 			Article article = forListArticles.get(i);
 
-			System.out.printf("%4d | %6d | %s | %4d\n", article.id, article.memberId, article.title, article.hit);
+			String writerName = null;
+
+			List<Member> members = Container.memberDao.members;
+
+			for (Member member : members) {
+				if (article.memberId == member.id) {
+					writerName = member.name;
+					break;
+				}
+			}
+
+			System.out.printf("%4d | %6s | %s | %4d\n", article.id, writerName, article.title, article.hit);
 		}
 
 	}
@@ -145,6 +154,11 @@ public class ArticleController extends Controller {
 			System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
 			return;
 		}
+		
+		if (foundArticle.memberId != loginedMember.id) {
+			System.out.println("권한이 없습니다.");
+			return;
+		}
 
 		System.out.printf("새 제목 : ");
 		String title = sc.nextLine();
@@ -162,14 +176,20 @@ public class ArticleController extends Controller {
 		String[] commandBits = command.split(" ");
 		int id = Integer.parseInt(commandBits[2]);
 
-		int foundIndex = getArticleIndexById(id);
+		//int foundIndex = getArticleIndexById(id);
+		Article foundArticle = getArticleById(id);
 
-		if (foundIndex == -1) {
+		if (foundArticle == null) {
 			System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
 			return;
 		}
 
-		articles.remove(foundIndex);
+		if (foundArticle.memberId != loginedMember.id) {
+			System.out.println("권한이 없습니다.");
+			return;
+		}
+
+		articles.remove(foundArticle);
 		System.out.printf("%d번 게시물이 삭제되었습니다.\n", id);
 
 	}
