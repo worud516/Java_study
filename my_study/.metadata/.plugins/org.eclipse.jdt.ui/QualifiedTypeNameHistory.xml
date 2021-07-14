@@ -8,4 +8,6 @@
     <fullyQualifiedTypeName name="Inheritance_overriding.Student"/>
     <fullyQualifiedTypeName name="Inheritance_overriding.Student2"/>
     <fullyQualifiedTypeName name="Inheritance_overriding.SportsCar"/>
+    <fullyQualifiedTypeName name="Polymorphism.Student"/>
+    <fullyQualifiedTypeName name="Polymorphism.Zookeeper"/>
 </qualifiedTypeNameHistroy>
