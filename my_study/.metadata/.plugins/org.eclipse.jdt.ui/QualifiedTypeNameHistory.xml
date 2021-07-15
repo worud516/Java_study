@@ -10,4 +10,5 @@
     <fullyQualifiedTypeName name="Inheritance_overriding.SportsCar"/>
     <fullyQualifiedTypeName name="Polymorphism.Student"/>
     <fullyQualifiedTypeName name="Polymorphism.Zookeeper"/>
+    <fullyQualifiedTypeName name="Abstraction.Shape"/>
 </qualifiedTypeNameHistroy>
