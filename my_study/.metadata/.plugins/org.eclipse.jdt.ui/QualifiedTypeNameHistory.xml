@@ -11,4 +11,6 @@
     <fullyQualifiedTypeName name="Polymorphism.Student"/>
     <fullyQualifiedTypeName name="Polymorphism.Zookeeper"/>
     <fullyQualifiedTypeName name="Abstraction.Shape"/>
+    <fullyQualifiedTypeName name="ExceptionHandling.Exception5.AgeException"/>
+    <fullyQualifiedTypeName name="ExceptionHandling.AgeException"/>
 </qualifiedTypeNameHistroy>
