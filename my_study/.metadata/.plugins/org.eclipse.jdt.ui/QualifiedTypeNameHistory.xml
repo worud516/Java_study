@@ -14,4 +14,5 @@
     <fullyQualifiedTypeName name="ExceptionHandling.Exception5.AgeException"/>
     <fullyQualifiedTypeName name="ExceptionHandling.AgeException"/>
     <fullyQualifiedTypeName name="java.util.StringTokenizer"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
 </qualifiedTypeNameHistroy>
