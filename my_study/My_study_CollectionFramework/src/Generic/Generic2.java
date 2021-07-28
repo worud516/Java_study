@@ -11,8 +11,6 @@ public class Generic2 {
 			a2.x="hello ";
 			a2.y="world!";
 			System.out.println(a2.x+a2.y);
-			
-			
 	}
 }
 
