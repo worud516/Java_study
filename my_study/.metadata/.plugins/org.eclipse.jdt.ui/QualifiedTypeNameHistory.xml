@@ -29,4 +29,6 @@
     <fullyQualifiedTypeName name="java.util.Set"/>
     <fullyQualifiedTypeName name="java.util.Iterator"/>
     <fullyQualifiedTypeName name="javax.print.attribute.SetOfIntegerSyntax"/>
+    <fullyQualifiedTypeName name="Thread.MyThread2"/>
+    <fullyQualifiedTypeName name="java.lang.Thread"/>
 </qualifiedTypeNameHistroy>
