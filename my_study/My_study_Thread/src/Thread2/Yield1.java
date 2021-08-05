@@ -16,7 +16,7 @@ public class Yield1 {
 class MyThread6 implements Runnable {
 	@Override
 	public void run() {
-		for (int i = 0; i < 30; i++) {
+		for (int i = 0; i < 300; i++) {
 			System.out.print("★");
 			Thread.yield(); // 자신에게 주어진 시간 양보
 		}
@@ -26,7 +26,7 @@ class MyThread6 implements Runnable {
 class MyThread7 implements Runnable {
 	@Override
 	public void run() {
-		for (int i = 0; i < 30; i++) {
+		for (int i = 0; i < 300; i++) {
 			System.out.print("☆");
 		}
 	}
