@@ -20,13 +20,13 @@ class ATM implements Runnable {
 			withdraw(1000);
 			printInfo();
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 			}
 		}
 	}
 
-	void withdraw(int money) {
+	synchronized void withdraw(int money) {
 		Thread.yield();
 		this.money -= money;
 		System.out.println(Thread.currentThread().getName() + "이(가) " + money + "원 출금");
